@@ -17,6 +17,9 @@ from typing import Optional, Union
 import numpy as np
 import polars as pl
 
+# numpy >=2.0 removed np.trapz; use np.trapezoid with fallback
+_trapz = getattr(np, "trapezoid", None) or np.trapz
+
 from ._model import (
     InsuranceEBM,
     _deviance_gamma,
@@ -92,7 +95,7 @@ def gini(
     # Gini of model predictions
     x = w_cum / w_total
     y = loss_cum / loss_total
-    gini_model = 1.0 - 2.0 * float(np.trapz(y, x))
+    gini_model = 1.0 - 2.0 * float(_trapz(y, x))
 
     # Gini of oracle (sort by actual outcomes)
     order_oracle = np.argsort(y_t)
@@ -102,7 +105,7 @@ def gini(
     lc = np.cumsum(y_t_oracle * w_oracle)
     x_o = wc / wc[-1]
     y_o = lc / lc[-1]
-    gini_oracle = 1.0 - 2.0 * float(np.trapz(y_o, x_o))
+    gini_oracle = 1.0 - 2.0 * float(_trapz(y_o, x_o))
 
     if gini_oracle == 0:
         return 0.0

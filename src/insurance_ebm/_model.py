@@ -14,7 +14,10 @@ from typing import Optional, Union
 import numpy as np
 import pandas as pd
 import polars as pl
-from interpret.glassbox import ExplainableBoostingRegressor
+try:
+    from interpret.glassbox import ExplainableBoostingRegressor
+except ImportError:
+    ExplainableBoostingRegressor = None  # deferred; conftest mocks this
 
 
 _SUPPORTED_LOSSES = {"poisson", "tweedie", "gamma", "mse", "mae", "huber"}

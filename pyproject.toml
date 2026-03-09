@@ -23,19 +23,26 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-    "interpret >= 0.7.0",
     "numpy >= 1.21",
     "polars >= 0.20",
     "matplotlib >= 3.4",
     "scikit-learn >= 1.0",
+    "pandas>=2.3.3",
+    "pyarrow>=21.0.0",
 ]
 
 [project.optional-dependencies]
+interpret = ["interpret >= 0.7.0"]
 excel = ["openpyxl >= 3.0"]
 glm = ["statsmodels >= 0.13"]
 dev = [
     "pytest >= 7.0",
     "pytest-cov",
+    "openpyxl >= 3.0",
+    "statsmodels >= 0.13",
+]
+all = [
+    "interpret >= 0.7.0",
     "openpyxl >= 3.0",
     "statsmodels >= 0.13",
 ]
@@ -50,3 +57,10 @@ packages = ["src/insurance_ebm"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-v"
+
+[dependency-groups]
+dev = [
+    "databricks-sdk>=0.97.0",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]

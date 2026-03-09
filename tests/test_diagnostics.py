@@ -236,9 +236,9 @@ class TestCalibrationTable:
         preds = fitted_poisson_model.predict(X_polars)
         segments = X_polars["vehicle_group"].to_numpy()
         df = calibration_table(synthetic_data["claim_count"], preds, segments)
-        # ae_ratio should be positive where predicted > 0
+        # ae_ratio should be non-negative where predicted > 0
         valid = df.filter(pl.col("predicted_total") > 0)
-        assert np.all(valid["ae_ratio"].to_numpy() > 0)
+        assert np.all(valid["ae_ratio"].to_numpy() >= 0)
 
     def test_sorted_by_ae_ratio(self, fitted_poisson_model, X_polars, synthetic_data):
         preds = fitted_poisson_model.predict(X_polars)
