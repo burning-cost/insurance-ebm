@@ -1,3 +1,5 @@
+⚠️ **This package has been merged into [`insurance-gam`](https://github.com/burning-cost/insurance-gam).** This repository is archived. Install `insurance-gam` instead.
+
 # insurance-ebm — Deprecated
 
 This package has been superseded by [insurance-gam](https://github.com/burning-cost/insurance-gam).
